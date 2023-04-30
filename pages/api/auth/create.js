@@ -1,33 +1,32 @@
 import clientPromise from "@/lib/mongodb";
 const ObjectId = require('mongodb').ObjectId;
 import { useRouter } from 'next/router'
-
+import bcrypt from "bcryptjs"
+import { HarperDBAdapter } from "@/lib/adapters/harperdb";
 
 export default function createAccount(req, res) {
     switch (req.method) {
-        case 'GET': {
+        case 'POST': {
             return createUser(req, res);
         }
         default: {
-            return updatePost(req, res);
+            return res.send("404");
         }
 
     }
 }
 
 async function createUser(req, res) {
-    try {
-        const client = await clientPromise;
-        const db = client.db("menfess");
-        await db.collection('users').insertOne(JSON.parse(req.body));
-        return res.json({
-            message: JSON.parse(JSON.stringify(posts)),
-            success: true,
-        });
-    } catch (error) {
-        return res.json({
-            message: new Error(error).message,
-            success: false,
-        });
+
+    let data = JSON.parse(req.body)
+    let checkEmail = await HarperDBAdapter().getUserByEmail(data.email)
+    if (checkEmail) return res.json({ "success": false, "message": "Email already exists" })
+    console.log(data.password)
+    data.password = (await bcrypt.hash(data.password, 12))
+    let createUser = await HarperDBAdapter().createUser(data)
+    if (createUser) {
+        return res.json({ "success": true, "message": "" })
     }
+
+
 }
