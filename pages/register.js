@@ -3,9 +3,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 export default function registerPage() {
 
-    useEffect(() => {
-        //toast('Toast is good', { hideProgressBar: true, autoClose: 2000, type: 'success' })
-    }, [])
+   
     return (
         <>
 
