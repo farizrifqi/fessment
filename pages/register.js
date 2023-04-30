@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import { useSession, getSession } from "next-auth/react";
 import Link from "next/link";
 
-
 export default function RegisterPage() {
     let router = useRouter()
     let { data: session } = useSession()
@@ -64,9 +63,7 @@ export default function RegisterPage() {
     }
 
     useEffect(() => {
-        if (session) {
-            router.push('/')
-        }
+
     }, [validatePass, handleSetEmail])
     if (session) {
         return (
