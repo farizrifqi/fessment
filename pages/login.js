@@ -31,6 +31,11 @@ export default function LoginPage() {
             toast(res.error, { hideProgressBar: true, autoClose: 2000, type: 'warning' })
         }
     }
+    useEffect(() => {
+        if (session) {
+            router.push('/')
+        }
+    }, [])
 
     return (
         <>

@@ -63,7 +63,9 @@ export default function RegisterPage() {
     }
 
     useEffect(() => {
-
+        if (session) {
+            router.push('/')
+        }
     }, [])
 
     return (
