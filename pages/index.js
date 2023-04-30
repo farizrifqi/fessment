@@ -1,4 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react"
+import Link from "next/link"
 import { useEffect } from "react"
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
     return (
       <>
         Not signed in <br />
-        <a href="/login">Login</a>
+        <Link href="/login">Login</Link>
       </>
     )
   }

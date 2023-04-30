@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from 'next/router'
 import { useSession, getSession } from "next-auth/react";
+import Link from "next/link";
 export default function registerPage() {
     let router = useRouter()
     let session = useSession()
@@ -67,10 +68,12 @@ export default function registerPage() {
         if (session.data) {
             router.push('/')
         }
-    }, [validatePass, handleSetEmail, handleSetName, getSession()])
+    })
+    useEffect(() => {
+
+    }, [validatePass, handleSetEmail])
     return (
         <>
-
             <div
                 className="min-h-screen min-w-screen">
                 <div className="flex flex-col ">
@@ -120,7 +123,7 @@ export default function registerPage() {
                                     disabled={repass.pass == '' || repass.rePass == '' || email == '' || name == ''}
                                 >Sign up</button>
                                 <div className="flex flex-row justify-end w-full">
-                                    <a href="login" className="tracking-wide" >Already have an account?</a>
+                                    <Link href="login" className="tracking-wide" >Already have an account?</Link>
                                 </div>
                             </div>
 

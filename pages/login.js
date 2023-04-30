@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from 'next/router'
 import { getSession, signIn, useSession } from "next-auth/react";
+import Link from "next/link";
 export default function loginPage() {
     let router = useRouter()
     let session = useSession()
@@ -35,7 +36,7 @@ export default function loginPage() {
         if (session.data) {
             router.push('/')
         }
-    }, [getSession()])
+    })
     return (
         <>
 
@@ -68,7 +69,7 @@ export default function loginPage() {
 
                                 >Sign in</button>
                                 <div className="flex flex-row justify-end w-full">
-                                    <a href="register" className="tracking-wide" >Register new account</a>
+                                    <Link href="register" className="tracking-wide" >Register new account</Link>
                                 </div>
                             </div>
 
