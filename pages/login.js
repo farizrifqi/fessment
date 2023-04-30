@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { useRouter } from 'next/router'
 import { getServerSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
-export default function loginPage() {
+export default function LoginPage() {
     let router = useRouter()
     let { data: session } = useSession()
 

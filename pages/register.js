@@ -3,14 +3,15 @@ import { toast } from "react-toastify";
 import { useRouter } from 'next/router'
 import { useSession, getSession } from "next-auth/react";
 import Link from "next/link";
-export default function registerPage() {
+
+
+export default function RegisterPage() {
     let router = useRouter()
     let { data: session } = useSession()
-
     const [email, setEmail] = useState('farizrifqi26@gmail.com')
-
     const [name, setName] = useState('Fariz Rifqi Ahmad')
     const [repass, setPass] = useState({ pass: '123123', rePass: '123123' })
+
     const validatePass = (p, r) => {
         setPass({ pass: p, rePass: r })
     }
