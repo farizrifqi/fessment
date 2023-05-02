@@ -118,7 +118,8 @@ export default function RegisterPage() {
                                 <button className="text-white block bg-sky-500 p-3 w-full font-medium disabled:bg-sky-700" onClick={signUp}
                                     disabled={repass.pass == '' || repass.rePass == '' || email == '' || name == ''}
                                 >Sign up</button>
-                                <div className="flex flex-row justify-end w-full">
+                                <div className="flex flex-row justify-between w-full">
+                                    <Link href="/" className="tracking-wide" >Back to Homepage</Link>
                                     <Link href="login" className="tracking-wide" >Already have an account?</Link>
                                 </div>
                             </div>
