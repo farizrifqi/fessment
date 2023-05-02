@@ -96,13 +96,13 @@ export default function DashboardPage() {
     if (session) {
         return (
             <>
-                <div className="w-min-screen antialiased">
-                    <div className="flex flex-col">
+                <div className="w-min-screen w-screen antialiased">
+                    <div className="flex flex-col w-screen">
 
-                        <div className="h-screen flex flex-col justify-start items-center bg-slate-900">
+                        <div className="h-screen flex flex-col justify-start items-center bg-slate-900 w-screen">
                             <Navbar session={session} />
-                            <div className="w-1/2 m-10">
-                                <div className={`grid ${twitterlists.length == 0 ? 'grid-cols-1' : 'grid-cols-2'} text-white w-full justify-center gap-4`}>
+                            <div className="w-1/2 m-10 ">
+                                <div className={`grid ${twitterlists.length == 0 ? 'grid-cols-1 md:grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}  text-white w-full justify-center gap-4`}>
                                     {
                                         (twitterlists.length > 0) ?
                                             twitterlists.map((twitter, i) => (
