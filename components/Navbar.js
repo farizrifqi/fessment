@@ -11,14 +11,7 @@ export default function Navbar(props) {
         signOut()
     }
     const links = [
-        {
-            path: "/dashboard",
-            name: "Dashboard"
-        },
-        {
-            path: "/manage",
-            name: "Manage Accounts"
-        }
+
     ]
 
     if (session) {
@@ -31,6 +24,7 @@ export default function Navbar(props) {
                     </div>
 
                     <div className="flex flex-row gap-3">
+                        <div className="text-white px-5 py-2 opacity-100 text-sm border rounded border-slate-700"><b>{session.email}</b> </div>
                         {
                             links.map((l, i) => (
                                 <Link href={`${router.pathname == l.path ? "#" : l.path}`} key={i} className={`${router.pathname == l.path ? 'bg-slate-700' : 'bg-slate-600'} px-5 py-1 rounded hover:opacity-100 text-sm text-gray-200 font-medium `}>{l.name}</Link>
@@ -38,7 +32,7 @@ export default function Navbar(props) {
                         }
                     </div>
                     <div className="flex flex-row gap-2">
-                        <div className="text-white px-5 py-2 opacity-100 text-sm border rounded border-slate-700"><b>{session.email}</b> </div>
+
                         <button onClick={signOutClick} className="text-white bg-sky-700 px-5 py-2 rounded opacity-100 text-sm "><i className="fa fa-cog"></i></button>
                         <button onClick={signOutClick} className="text-white bg-slate-700 px-5 py-2 rounded opacity-100 text-sm "><i className="fa fa-power-off"></i></button>
                     </div>

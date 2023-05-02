@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react"
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Head from 'next/head'
+import { CookiesProvider } from 'react-cookie';
 
 export default function App({ Component, pageProps }) {
   return (
@@ -10,12 +11,14 @@ export default function App({ Component, pageProps }) {
       <Head>
         <title>Fessment</title>
       </Head>
-      <SessionProvider session={pageProps.session}>
+      <CookiesProvider>
+        <SessionProvider session={pageProps.session}>
 
-        <Component {...pageProps} />
-        <ToastContainer />
+          <Component {...pageProps} />
+          <ToastContainer />
 
-      </SessionProvider>
+        </SessionProvider>
+      </CookiesProvider>
     </>
   )
 }

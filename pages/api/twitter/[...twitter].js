@@ -8,9 +8,9 @@ export default async function APITwitter(req, res) {
         case "callback":
             let cb = await callback(req)
             if (cb.success) {
-                res.redirect(307, '/manage?type=success&action=addaccount').end()
+                res.redirect(307, '/dashboard?type=success&action=addaccount').end()
             } else {
-                res.redirect(307, '/manage?type=warning&message=' + cb.message).end()
+                res.redirect(307, '/dashboard?type=warning&message=' + cb.message).end()
             }
             break;
 
