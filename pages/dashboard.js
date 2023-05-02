@@ -8,10 +8,6 @@ import Navbar from "@/components/Navbar"
 export default function DashboardPage() {
     let { data: session, status } = useSession()
     let router = useRouter()
-    const signOutClick = () => {
-        signOut()
-
-    }
     useEffect(() => {
         if (!session && status != 'loading') {
             router.push('/');
@@ -21,12 +17,14 @@ export default function DashboardPage() {
     if (session) {
         return (
             <>
-
                 <div className="w-min-screen antialiased">
                     <div className="flex flex-col">
-                        <Navbar session={session} />
-                        <div className="h-screen flex flex-col justify-center items-center bg-slate-900">
 
+                        <div className="h-screen flex flex-col justify-start items-center bg-slate-900">
+                            <Navbar session={session} />
+                            <div className="w-1/2 m-5">
+                                <button className="text-white bg-sky-500 rounded px-2 py-1" ><i className="fa fa-plus"></i> s Account</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,9 +1,7 @@
 import { auth } from "twitter-api-sdk";
 export default function addTwitter(req, res) {
-    res.send(getTwitterOAuthURL())
-
+    res.redirect(307, getTwitterOAuthURL()).end()
 }
-
 
 function getTwitterOAuthURL() {
     const rootUrl = "https://twitter.com/i/oauth2/authorize"

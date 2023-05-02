@@ -13,7 +13,15 @@ a {
 body {
   @apply bg-gray-100;
 }
-
+th, td {
+	@apply border border-slate-800;
+}
+td{
+	@apply px-2 py-1;
+}
+th{
+	@apply px-3 py-2;
+}
 .loader {
 	border-top-color: #3498db;
 	-webkit-animation: spinner 1.5s linear infinite;

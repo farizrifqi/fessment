@@ -24,7 +24,7 @@ export default function Navbar(props) {
     if (session) {
         return (
             <div
-                className="fixed w-full bg-slate-800">
+                className="w-full bg-slate-800">
                 <div className="m-5 flex flex-row justify-between items-center text-gray-100">
                     <div className="font-bold  tracking-wider text-3xl">
                         <Link href='' className="text-white hover:opacity-100">FESSMENT.</Link>
@@ -33,7 +33,7 @@ export default function Navbar(props) {
                     <div className="flex flex-row gap-3">
                         {
                             links.map((l, i) => (
-                                <Link href={`${router.pathname == l.path ? "#" : l.path}`} key={i} className=" bg-slate-700 px-5 py-1 rounded hover:opacity-100 text-sm text-gray-200 font-medium">{l.name}</Link>
+                                <Link href={`${router.pathname == l.path ? "#" : l.path}`} key={i} className={`${router.pathname == l.path ? 'bg-slate-700' : 'bg-slate-600'} px-5 py-1 rounded hover:opacity-100 text-sm text-gray-200 font-medium `}>{l.name}</Link>
                             ))
                         }
                     </div>
