@@ -39,6 +39,7 @@ export default function Navbar(props) {
                     </div>
                     <div className="flex flex-row gap-2">
                         <div className="text-white px-5 py-2 opacity-100 text-sm border rounded border-slate-700"><b>{session.email}</b> </div>
+                        <button onClick={signOutClick} className="text-white bg-sky-700 px-5 py-2 rounded opacity-100 text-sm "><i className="fa fa-cog"></i></button>
                         <button onClick={signOutClick} className="text-white bg-slate-700 px-5 py-2 rounded opacity-100 text-sm "><i className="fa fa-power-off"></i></button>
                     </div>
                 </div>

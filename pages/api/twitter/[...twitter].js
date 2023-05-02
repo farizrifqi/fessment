@@ -18,6 +18,11 @@ export default async function APITwitter(req, res) {
             let accounts = await getUserTwitterAccounts(req)
             res.json(accounts)
             break;
+        case "changeTrigger":
+            let changeTr = await changeTrigger(req, req.query.twitter[1], req.query.twitter[2])
+            // res.json(req.query)
+            res.json(changeTr)
+            break;
         case "deleteTwitterAccount":
             let deleteAcc = await deleteTwitterAccount(req, req.query.twitter[1])
             res.json({ success: deleteAcc })
@@ -64,4 +69,14 @@ async function deleteTwitterAccount(req, id) {
         return false
     }
     return true
+}
+async function changeTrigger(req, id, key) {
+    const session = await getSession({ req })
+    if (!id || !session) return false
+    let userInfo = await getTwitterAccountById(id)
+    if (!userInfo[0]) return false
+    if (userInfo[0].owner_email != session.email) return false
+    let changeTrig = await HarperDBAdapter().changeTrigger(id, key)
+
+    return changeTrig
 }
