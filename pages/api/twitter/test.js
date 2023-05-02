@@ -1,9 +1,9 @@
 import { FessmentTwitter } from "../../../lib/twitter"
 
 async function getDMS(req, res) {
-    let token = "NmZ2RFFjTDhDOEh5UUNrZEZPZzl0eWxobGh6T3Y5SXhpQ1NYcGhvWlUzWC1rOjE2ODMwMjM0MTkzMjA6MTowOmF0OjE"
+    let token = "bVd3VEZPWU55TUZBWWZaR214YnU5QUZiNllwT09uRHZ4R1lrd0VLRlN0TnpROjE2ODMwNjEzODI3MjU6MToxOmF0OjE"
     let dms = await FessmentTwitter().getDirectMessages(token)
-    console.log(dms)
+    console.log(dms.data[0], dms.includes.media)
     res.send("ea")
 }
 
