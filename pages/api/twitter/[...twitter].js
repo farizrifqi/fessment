@@ -105,7 +105,7 @@ async function refreshToken() {
 }
 async function RunFessment(triggerTime) {
     let accs = await HarperDBAdapter().getTwitterAccounts()
-
+    let resultbos = []
     let success = 0, dupe = 0, fail = 0, image = 0, totAcc = 0
     accs.forEach(async (acc) => {
         totAcc++
@@ -115,7 +115,7 @@ async function RunFessment(triggerTime) {
             if (dm.sender_id != acc.twitter_id) {
                 if (dm.text.includes(acc.triggerKey)) {
                     let log = await HarperDBAdapter().findRunLogByDMID(dm.id)
-                    if (!(log && log[0])) {
+                    if (!(log && log[0] && log[0].status == "success")) {
                         let sendTweet, text
                         if (dm.attachments) {
                             image++
@@ -130,12 +130,12 @@ async function RunFessment(triggerTime) {
                             sendTweet = await FessmentTwitter().createTweet(acc.access_token, text)
                         }
                         if (!sendTweet.data) {
-                            let sendLog = await HarperDBAdapter().addRunLog(acc.id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "failed")
+                            let sendLog = await HarperDBAdapter().addRunLog(acc.id, dm.sender_id, dm.text, null, dm.id, "failed")
                             fail++
                         } else {
                             success++
-                            let sendLog = await HarperDBAdapter().addRunLog(acc.twitter_id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "success")
                             console.log("[...twitter]", sendTweet)
+                            let sendLog = await HarperDBAdapter().addRunLog(acc.twitter_id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "success")
                             let userInfo = dms.includes.users.filter(u => u.id == dm.sender_id)
                             let sendDm = await FessmentTwitter().sendDirectMessages(acc.access_token, dm.sender_id, `Tweet terkirim kak. https://www.twitter.com/${userInfo.username}/status/${sendTweet.data.id}`)
                         }
@@ -148,4 +148,8 @@ async function RunFessment(triggerTime) {
         }
     })
     return { totAcc: totAcc, success: success, fail: fail, dupe: dupe, image: image }
+}
+async function addWorkerLog(path, from, response) {
+    let logs = await HarperDBAdapter().workerLog(path, from, response)
+    return logs
 }

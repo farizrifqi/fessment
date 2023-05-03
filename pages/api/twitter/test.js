@@ -14,4 +14,7 @@ async function sendDMS(req, res) {
     console.log(dms)
     res.send("ea")
 }
-export default sendDMS
+async function encos(req, res) {
+
+}
+export default encos
