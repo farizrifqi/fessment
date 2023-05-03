@@ -120,7 +120,7 @@ async function RunFessment(triggerTime) {
                         let sendTweet, text
                         if (dm.attachments) {
                             image++
-                            return;
+                            break;
                             text = dm.text.split(" ")
                             text.pop()
                             text = text.join(" ")
