@@ -26,6 +26,7 @@ export default async function APITwitter(req, res) {
             let deleteAcc = await deleteTwitterAccount(req, req.query.twitter[1])
             res.json({ success: deleteAcc })
             break;
+
         case "refreshToken":
             let accs = await refreshToken()
             res.json(accs)
@@ -113,7 +114,7 @@ async function RunFessment(triggerTime) {
         for await (const dm of dms.data) {
             if (dm.sender_id != acc.twitter_id) {
                 if (dm.text.includes(acc.triggerKey)) {
-                    let log = await HarperDBAdapter().findRunLog(dm.id)
+                    let log = await HarperDBAdapter().findRunLogByDMID(dm.id)
                     if (!(log && log[0])) {
                         let sendTweet, text
                         if (dm.attachments) {
@@ -128,17 +129,18 @@ async function RunFessment(triggerTime) {
                             text = dm.text
                             sendTweet = await FessmentTwitter().createTweet(acc.access_token, text)
                         }
-                        console.log(sendTweet)
                         if (!sendTweet.data) {
+                            let sendLog = await HarperDBAdapter().addRunLog(acc.id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "failed")
                             fail++
                         } else {
                             success++
+                            let sendLog = await HarperDBAdapter().addRunLog(acc.twitter_id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "success")
                         }
-                        let sendLog = await HarperDBAdapter().addRunLog(acc.id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "success")
+
 
                     } else {
                         dupe++
-                        console.log("pernah di post")
+                        console.log(dm.text, "pernah di post")
                     }
                 }
             }
