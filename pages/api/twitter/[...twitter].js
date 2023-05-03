@@ -91,8 +91,7 @@ async function refreshToken() {
     let accs = await HarperDBAdapter().getTwitterAccounts()
     accs.forEach(async (acc) => {
         let getToken = await FessmentTwitter().refreshOAuthToken(acc.refresh_token)
-
-        let update = await HarperDBAdapter().updateAccounts(acc.id, getToken)
+        let update = await HarperDBAdapter().updateAccounts(acc.id, { access_token: getToken.access_token, refresh_token: getToken.refresh_token })
         return update
     })
 }
