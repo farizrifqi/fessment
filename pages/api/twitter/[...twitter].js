@@ -110,7 +110,7 @@ async function RunFessment(triggerTime) {
     let success = 0, dupe = 0, fail = 0, image = 0, totAcc = 0
     for await (const acc of accs) {
         totAcc++
-        if (triggerTime != acc.triggerTime) return;
+        if (triggerTime != acc.triggerTime) break;
         let dms = await FessmentTwitter().getDirectMessages(acc.access_token)
         for await (const dm of dms.data) {
             if (dm.sender_id != acc.twitter_id) {
@@ -131,18 +131,19 @@ async function RunFessment(triggerTime) {
                             sendTweet = await FessmentTwitter().createTweet(acc.access_token, text)
                         }
                         if (!sendTweet.data) {
-                            let sendLog = await HarperDBAdapter().addRunLog(acc.id, dm.sender_id, dm.text, null, dm.id, "failed")
+                            await HarperDBAdapter().addRunLog(acc.id, dm.sender_id, dm.text, null, dm.id, "failed")
                             fail++
                         } else {
                             success++
                             console.log("[...twitter]", sendTweet)
-                            let sendLog = await HarperDBAdapter().addRunLog(acc.twitter_id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "success")
+                            await HarperDBAdapter().addRunLog(acc.twitter_id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "success")
                             let userInfo = dms.includes.users.filter(u => u.id == dm.sender_id)
-                            let sendDm = await FessmentTwitter().sendDirectMessages(acc.access_token, dm.sender_id, `Tweet terkirim kak. https://www.twitter.com/${userInfo.username}/status/${sendTweet.data.id}`)
+                            await FessmentTwitter().sendDirectMessages(acc.access_token, dm.sender_id, `Tweet terkirim kak. https://www.twitter.com/${userInfo.username}/status/${sendTweet.data.id}`)
                         }
                     } else {
                         dupe++
                         console.log(dm.text, "pernah di post")
+                        break;
                     }
                 }
             }
