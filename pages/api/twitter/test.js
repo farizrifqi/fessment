@@ -15,6 +15,6 @@ async function sendDMS(req, res) {
     res.send("ea")
 }
 async function encos(req, res) {
-
+    
 }
 export default encos

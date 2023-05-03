@@ -29,11 +29,13 @@ export default async function APITwitter(req, res) {
 
         case "refreshToken":
             let accs = await refreshToken()
+            await addWorkerLog(`/api/twitter/refreshToken`, process.env.NEXTAUTH_URL, accs)
             res.json(accs)
             break;
         case "RunFessment":
             if (!req.query.twitter[1]) { res.json({ success: false, message: "No Trigger" }) }
             let runFess = await RunFessment(req.query.twitter[1])
+            await addWorkerLog(`/api/twitter/RunFessment/${req.query.twitter[1]}`, process.env.NEXTAUTH_URL, runFess)
             res.json(runFess)
             break;
         default:
