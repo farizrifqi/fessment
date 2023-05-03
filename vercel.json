@@ -1,0 +1,16 @@
+{
+    "crons": [
+        {
+            "path": "/api/twitter/RunFessment/15",
+            "schedule": "*/15 * * * *"
+        },
+        {
+            "path": "/api/twitter/refreshToken",
+            "schedule": "00 0-21/3 * * *"
+        },
+        {
+            "path": "/api/twitter/refreshToken",
+            "schedule": "30 1-22/3 * * *"
+        }
+    ]
+}
