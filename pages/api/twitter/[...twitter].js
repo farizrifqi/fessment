@@ -135,9 +135,10 @@ async function RunFessment(triggerTime) {
                         } else {
                             success++
                             let sendLog = await HarperDBAdapter().addRunLog(acc.twitter_id, dm.sender_id, dm.text, sendTweet.data.id, dm.id, "success")
+                            console.log("[...twitter]", sendTweet)
+                            let userInfo = dms.includes.users.filter(u => u.id == dm.sender_id)
+                            let sendDm = await FessmentTwitter().sendDirectMessages(acc.access_token, dm.sender_id, `Tweet terkirim kak. https://www.twitter.com/${userInfo.username}/status/${sendTweet.data.id}`)
                         }
-
-
                     } else {
                         dupe++
                         console.log(dm.text, "pernah di post")

@@ -1,10 +1,17 @@
 import { FessmentTwitter } from "../../../lib/twitter"
 
 async function getDMS(req, res) {
-    let token = "bVd3VEZPWU55TUZBWWZaR214YnU5QUZiNllwT09uRHZ4R1lrd0VLRlN0TnpROjE2ODMwNjEzODI3MjU6MToxOmF0OjE"
+    let token = "MEtSY1Z6Yy0wekh4Ti1wY1hmVVdrbEY5TTNqZ2k1T2tDWjJwM3M1RmJEOFZrOjE2ODMxMzE1MDA4NTk6MToxOmF0OjE"
     let dms = await FessmentTwitter().getDirectMessages(token)
-    console.log(dms.data[0], dms.includes.media)
+    console.log(dms.includes.users)
+    let x = dms.includes.users.filter(u => u.id == "547529817")
+    console.log(x[0])
     res.send("ea")
 }
-
-export default getDMS
+async function sendDMS(req, res) {
+    let token = "bkJFVV9uWURVSU1OSDhOa2dLa3ZKS3g3MXdFSDRrTUtGcmJ6QXFmSzdNTjlhOjE2ODMxMzMwNDI1NzA6MToxOmF0OjE"
+    let dms = await FessmentTwitter().sendDirectMessages(token, "547529817", "test")
+    console.log(dms)
+    res.send("ea")
+}
+export default sendDMS

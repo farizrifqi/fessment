@@ -53,7 +53,7 @@ export default function getTwitterOAuthURL(req, res) {
         response_type: "code",
         code_challenge: "y_SfRG4BmOES02uqWeIkIgLQAlTBggyf_G7uKT51ku8",
         code_challenge_method: "S256",
-        scope: ["users.read", "tweet.write", "tweet.read", "follows.read", "follows.write", "offline.access", "dm.read"].join(" "), // add/remove scopes as needed
+        scope: ["users.read", "tweet.write", "tweet.read", "follows.read", "follows.write", "offline.access", "dm.read", "dm.write"].join(" "), // add/remove scopes as needed
     };
     const qs = new URLSearchParams(options).toString();
     res.redirect(307, `${rootUrl}?${qs}`).end()
