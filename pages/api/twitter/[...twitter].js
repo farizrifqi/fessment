@@ -107,9 +107,8 @@ async function refreshToken() {
 }
 async function RunFessment(triggerTime) {
     let accs = await HarperDBAdapter().getTwitterAccounts()
-    let resultbos = []
     let success = 0, dupe = 0, fail = 0, image = 0, totAcc = 0
-    accs.forEach(async (acc) => {
+    for await (const acc of accs) {
         totAcc++
         if (triggerTime != acc.triggerTime) return;
         let dms = await FessmentTwitter().getDirectMessages(acc.access_token)
@@ -148,7 +147,7 @@ async function RunFessment(triggerTime) {
                 }
             }
         }
-    })
+    }
     return { totAcc: totAcc, success: success, fail: fail, dupe: dupe, image: image }
 }
 async function addWorkerLog(path, from, response) {
