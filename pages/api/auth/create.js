@@ -1,6 +1,3 @@
-import clientPromise from "@/lib/mongodb";
-const ObjectId = require('mongodb').ObjectId;
-import { useRouter } from 'next/router'
 import bcrypt from "bcryptjs"
 import { HarperDBAdapter } from "@/lib/adapters/harperdb";
 
